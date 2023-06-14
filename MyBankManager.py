@@ -43,7 +43,7 @@ class bank:
 	def account_list(self):
 		for data in raw_data:
 			split_data = data.split(',')
-			print("Account no : ",split_data[0])
+			print("Account number : ",split_data[0])
 			print("Account holder name : ",split_data[1])
 			print("Current balance : ",split_data[2])
 			print("Account type is : ",split_data[3])
@@ -52,7 +52,7 @@ class bank:
 
 
 	def account_modify(self,ac_no):
-		print("Account no :",ac_no)
+		print("Account number :",ac_no)
 		name=input("Enter account holder name : ")
 		deposit=int(input("Enter the amount you are depositing: "))
 		acc_type=input("Enter type of account - s/c :")
@@ -62,9 +62,9 @@ class bank:
 			if ac_no == split_data[0]:
 				raw_data[raw_data.index(data)] = value
 				self.file_write(raw_data)
-				print('Successfully Updated')
+				print("This account has been modified successfully.")
 				return True
-		print("Try Again.")
+		print("An invalid input has been detected. /nPlease try again.")
 
 	def deposit(self,ac):
 		money = int(input("Enter the amount you'd like to deposit: "))
@@ -109,9 +109,9 @@ class bank:
 				raw_data.remove(data)
 				break
 		if(self.file_write(raw_data)):
-			print('Successfully Delleted !!!!')
+			print("Account has been deleted successfully.")
 		else:
-			print('please try again')
+			print("An error has occured. Please try again.")
 
 	def search_account_no(self,account_no):
 		for list_data in raw_data:
@@ -137,59 +137,62 @@ my_bank = bank()
 #my_bank.account_list()
 
 try:
-	user_input=int(input("Select an option for any operation from 1-7 :"))
+	user_input = int(input("Select an option for any operation from 1-7 :"))
 except ValueError:
-	print("\nInvalid input. Please try again.")
+	print("\nThis is an invalid input. Please try again.")
 else:
-	print("\n ")
+	print("\n")
 
 
-if user_input==1:
+if user_input == 1:
 	my_bank.account_create()
 
 
-elif user_input==2:
+elif user_input == 2:
 	my_bank.account_list()
 
 
-elif user_input==3:
-	num=input("Enter the account number for modification :")
+elif user_input == 3:
+	num = input("Enter the account number for modification :")
 	if my_bank.search_account_no(num):
 		my_bank.account_modify(num)
 	else:
 		print("Incorrect account number, please retry.")
 
 
-elif user_input==4:
-	num1=input("Enter Account number to deposit amount :")
+elif user_input == 4:
+	num1 = input("Enter account number to deposit amount :")
 	if my_bank.search_account_no(num1):
 		my_bank.deposit(num1)
 	else:
-		print("Incorrect account_no.")
+		print("""This is an invalid account number.
+		      /nPlease try again.""")
 		
 
-elif user_input==5:
-	num2=input("Enter Account number to withdraw amount :")
+elif user_input == 5:
+	num2 = input("Enter account number to withdraw amount :")
 	if my_bank.search_account_no(num2):
 		my_bank.withdraw(num2)
 	else:
-		print("Incorrect account_no.")
+		print("""This is an invalid account number.
+		      /nPlease try again.""")
 		
 
 
-elif user_input==6:
-	num3=input("Enter Account number for delete :")
+elif user_input == 6:
+	num3 = input("Enter account number for deletion:")
 	f=open(filename,"r")
 	raw=f.read()
 	if num3 not in raw:
-			print("Incorrect Account number.")
+			print("""This is an invalid account number.
+		      /nPlease try again.""")
 	else:
 			my_bank.account_delete(num3)
 	f.close()
 
 
-elif user_input==7:
-	print("Thanks for Using Our Bank Management System")
+elif user_input == 7:
+	print("We hate to see you leave. /nSee you soon.")
 	quit()
 else:
 	print("Invalid input.")
