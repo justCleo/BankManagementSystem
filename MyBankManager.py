@@ -109,9 +109,9 @@ class bank:
 				raw_data.remove(data)
 				break
 		if(self.file_write(raw_data)):
-			print("Account has been deleted successfully.")
+			print('Successfully Deleted !')
 		else:
-			print("An error has occured. Please try again.")
+			print('Please try again.')
 
 	def search_account_no(self,account_no):
 		for list_data in raw_data:
